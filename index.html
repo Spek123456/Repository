@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			margin: 0;
+			min-width: 250px;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+		/* make it stylish and what not*/
+
+		ul li {
+			cursor: pointer;
+			position: relative;
+			padding: 13px 9px 13px 41px;
+			list-style-type: none;
+			background: #eee;
+			font-size: 20px;
+			transition: 0.2s;
+
+
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		ul li:nth-child(odd) {
+			background: #ffffff;
+		}
+
+		ul li:hover {
+			background: #ddd;
+		}
+
+		ul li.checked {
+			background: #CC0000;
+			color: #000000;
+			text-decoration: line-through;
+		}
+
+		ul li.checked::before {
+			content: '';
+			position: absolute;
+			border-color: #0000FF;
+			border-style: solid;
+			border-width: 0 2.5px 2.5px 0;
+			top: 10px;
+			left: 16px;
+			transform: rotate(45deg);
+			height: 18px;
+			width: 10px;
+		}
+
+		.close {
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 13px 17px 13px 17px;
+		}
+
+		.close:hover {
+			background-color: #000000;
+			color: #ffffff;
+		}
+
+
+		.header:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		input {
+			margin: 0;
+			border: none;
+			border-radius: 0;
+			width: 75%;
+			padding: 10px;
+			float: left;
+			font-size: 16px;
+		}
+
+		.addBtn {
+			padding: 10px;
+			width: 25%;
+			background: #000000;
+			color: #ffffff;
+			float: left;
+			text-align: center;
+			font-size: 26px;
+			cursor: pointer;
+			transition: 0.3s;
+			border-radius: 0;
+		}
+
+		.addBtn:hover {
+			background-color: #4C4C4C;
+		}
+	</style>
+</head>
+
+<body>
+
+	<button type="button" onclick="alert()">Click Me!</button>
+
+	<div id="myDIV" class="header">
+		<h2 style="margin:5px">To Do List ftw</h2>
+		<input type="text" id="myInput" placeholder="Title...">
+		<span onclick="newElement()" class="addBtn">Add to list</span>
+	</div>
+
+	<ul id="myUL">
+		<li>Get Sushi</li>
+		<li class="checked">Go running</li>
+		<li>Catch the train with my bare hands</li>
+		<li>Meassage Aaron(T) and Aaron(S)</li>
+		<li>Try and perfect the main verses of Halo on Fire & Seal the Deal </li>
+		<li class="checked">Eat</li>
+	</ul>
+
+	<script>
+		var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+// Check button
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+
+	</script>
+
+</body>
+
+</html>
